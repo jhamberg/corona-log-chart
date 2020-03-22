@@ -15,8 +15,8 @@ countries = [
     'Korea, South',
     'Spain',
     'Sweden',
-    'US'
-    'United Kingdom',
+    'US',
+    'United Kingdom'
 ]
 
 url = "https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv"
@@ -29,7 +29,7 @@ fig = pd.read_csv(url) \
     .set_index("Country/Region") \
     .T \
     .iloc[dskip:] \
-    .plot(figsize=(6,6))
+    .plot(figsize=(7,7))
 
 plt.xlabel("Date")
 plt.ylabel("Total COVID-19 Cases")
