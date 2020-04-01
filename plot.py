@@ -30,21 +30,21 @@ args = parser.parse_args()
 url = f'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_{args.dataset}_global.csv'
 dskip = 30 # Days to skip
 df = pd.read_csv(url) \
-    .drop(columns=["Lat", "Long"]) \
+    .drop(columns=['Lat', 'Long']) \
     .query('`Country/Region` == @countries') \
     .groupby("Country/Region", as_index=False) \
     .sum() \
-    .set_index("Country/Region") \
+    .set_index('Country/Region') \
     .T \
     .iloc[dskip:]
 
-yscale = "linear" if args.linear else "log"
+yscale = 'linear' if args.linear else 'log'
 ylabel = f"{args.dataset.capitalize()}"
 
 if (args.per_capita):
     # Divide values of each country by its population
     df = df.apply(lambda x: x / population[x.name])
-    ylabel = ylabel + " (per million)"
+    ylabel = ylabel + ' (per million)'
 
 df.plot(figsize=(7,7))
 
@@ -55,7 +55,7 @@ plt.minorticks_off()
 plt.gca().yaxis.set_minor_formatter(NullFormatter())
 plt.gca().yaxis.set_major_formatter(ScalarFormatter())
 
-timestamp = time.strftime("%Y%m%d")
-pc = "per_capita" if args.per_capita else "raw"
+timestamp = time.strftime('%Y%m%d')
+pc = 'per_capita' if args.per_capita else 'raw'
 filename = f"{yscale}-{pc}-{args.dataset}-{timestamp}.png"
 plt.savefig(filename)
