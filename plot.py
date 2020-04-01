@@ -48,7 +48,8 @@ if (args.per_capita):
 
 df.plot(figsize=(7,7))
 
-plt.xlabel("Date")
+plt.title('COVID-19 Cases')
+plt.xlabel('Date')
 plt.ylabel(ylabel)
 plt.yscale(yscale)
 plt.minorticks_off()
