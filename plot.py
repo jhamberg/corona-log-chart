@@ -28,8 +28,17 @@ fig = pd.read_csv(url) \
     .sum() \
     .set_index("Country/Region") \
     .T \
-    .iloc[dskip:] \
-    .plot(figsize=(7,7))
+    .iloc[dskip:]
+
+yscale = "linear" if args.linear else "log"
+ylabel = f"{args.dataset.capitalize()}"
+
+if (args.per_capita):
+    # Divide values of each country by its population
+    df = df.apply(lambda x: x / population[x.name])
+    ylabel = ylabel + " (per million)"
+
+df.plot(figsize=(7,7))
 
 plt.xlabel("Date")
 plt.ylabel("Total COVID-19 Cases")
