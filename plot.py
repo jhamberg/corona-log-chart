@@ -29,7 +29,7 @@ args = parser.parse_args()
 
 url = f'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_{args.dataset}_global.csv'
 dskip = 30 # Days to skip
-fig = pd.read_csv(url) \
+df = pd.read_csv(url) \
     .drop(columns=["Lat", "Long"]) \
     .query('`Country/Region` == @countries') \
     .groupby("Country/Region", as_index=False) \
@@ -49,11 +49,13 @@ if (args.per_capita):
 df.plot(figsize=(7,7))
 
 plt.xlabel("Date")
-plt.ylabel("Total COVID-19 Cases")
-plt.yscale("log")
+plt.ylabel(ylabel)
+plt.yscale(yscale)
 plt.minorticks_off()
 plt.gca().yaxis.set_minor_formatter(NullFormatter())
 plt.gca().yaxis.set_major_formatter(ScalarFormatter())
 
 timestamp = time.strftime("%Y%m%d")
-plt.savefig(f"{timestamp}.png")
+pc = "per_capita" if args.per_capita else "raw"
+filename = f"{yscale}-{pc}-{args.dataset}-{timestamp}.png"
+plt.savefig(filename)
