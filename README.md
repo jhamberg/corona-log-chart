@@ -1,10 +1,22 @@
 # Coronavirus Logarithmic Chart (per Country)
 
 Python script for plotting the [COVID-19](https://www.who.int/emergencies/diseases/novel-coronavirus-2019) cases on a logarithmic scale for selected countries.  
-Pulls and renders data from the up-to-date [Johns Hopkins data repository](https://github.com/CSSEGISandData/COVID-19).  
-To change the selection, edit the `countries` variable. 
+Pulls and renders data from the [Johns Hopkins data repository](https://github.com/CSSEGISandData/COVID-19).  
+To select countries, edit the `population` variable. 
 
-![Example plot](20200322.png)
+```bash
+usage: plot.py [-h] [-d DATASET] [-l] [-pc]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d DATASET, --data DATASET
+                        dataset (default: confirmed), possible values:
+                        confirmed, recovered, deaths
+  -l, --linear          use linear scale (default: false)
+  -pc, --per-capita     show values per million people (default: false)
+```
+
+![Example plot](log-per_capita-confirmed-20200401.png)
 
 ## Running 
 This script generates a .png file in the same directory. It uses Python 3.7, Pandas and Matplotlib.
